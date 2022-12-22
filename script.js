@@ -26,7 +26,7 @@ let player = new Player(ctx, 10,10, 50, 50,gamestack);
 eventHandlers.push(new playerEventListener(player))
 
 //viewport
-let viewport = new Viewport(ctx, 300, 100);
+let viewport = new Viewport(ctx, 500, 500);
 
 
 /*---------gameloop--------*/

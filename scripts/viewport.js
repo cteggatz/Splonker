@@ -3,8 +3,8 @@ export class Viewport {
     this.ctx = ctx;
     this.height = height;
     this.width = width;
-    this.x = (this.ctx.canvas.width - this.width) / 2;
-    this.y = (this.ctx.canvas.height - this.height) / 2;
+    this.x = (this.ctx.width-width)*0.5
+    this.y = (this.ctx.height-height)*0.5
     if(this.y < 0 || this.x < 0){
       console.log("[!]Error: viewport cannot be bigger then canvas")
       throw "viewport cannot be bigger then canvas"
