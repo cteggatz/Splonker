@@ -1,5 +1,6 @@
 import { createText, DebugStack } from './scripts/debug.js';
 import {Player, playerEventListener} from "./scripts/player.js";
+import {Viewport} from "./scripts/viewport.js";
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -24,10 +25,14 @@ gamestack.push(
 let player = new Player(ctx, 10,10, 50, 50,gamestack);
 eventHandlers.push(new playerEventListener(player))
 
+//viewport
+let viewport = new Viewport(ctx, 300, 100);
+
 
 /*---------gameloop--------*/
 function draw() {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  viewport.draw();
   gamestack.forEach((obj) => {
     obj.draw();
   });
