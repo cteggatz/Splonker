@@ -1,6 +1,5 @@
 export class Player {
-  constructor(ctx, x, y, width, height, stack) {
-    stack.push(this);
+  constructor(ctx, x, y, width, height) {
     this.pos = { x, y };
     this.size = { width, height };
     this.ctx = ctx;

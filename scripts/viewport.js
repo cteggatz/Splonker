@@ -1,3 +1,4 @@
+// is the bounds | the screen where objects are rendered
 export class Viewport {
   constructor(ctx, width, height) {
     this.ctx = ctx;
@@ -5,10 +6,9 @@ export class Viewport {
     this.width = width;
     this.x = [(this.ctx.canvas.width-width)*0.5]
     this.y = [(this.ctx.canvas.height-height)*0.5]
-    console.log(`${this.width}`)
   }
   draw() {
-    this.ctx.fillStyle = 'black';
+    this.ctx.fillStyle = 'red';
     this.ctx.fillRect(this.x[0]-64, this.y[0]-64, 64, this.height+128);
     this.ctx.fillRect((this.x[0]+this.width), this.y-64, 64, this.height+128);
     this.ctx.fillRect(this.x[0], this.y[0]-64, this.width, 64);

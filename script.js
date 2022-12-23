@@ -14,35 +14,62 @@ const time = {
   dt: new Array(),
   fps: new Array(),
 };
-//stack
+//debugging
 let debugStack = new Array();
-let gamestack = new Array();
-let eventHandlers = new Array();
-//debug labels
 debugStack.push(
   new DebugStack(ctx, [
     createText('Delta Time', time.dt),
     createText('fps', time.fps),
   ])
 );
-//player
-let player = new Player(ctx, 10,10, 50, 50,gamestack);
-eventHandlers.push(new playerEventListener(player))
 
-//viewport
+//game stuff
 let viewport = new Viewport(ctx, 640, 512);
+let gamestack = new Array();
+let eventHandlers = new Array();
+function addToGameStack(obj){
+  obj.pos.x += viewport.x[0];
+  obj.pos.y += viewport.y[0];
+  gamestack.push(obj)
+}
 
 
+//player
+let player = new Player(ctx, 10,10, 50, 50);
+addToGameStack(player);
+eventHandlers.push(new playerEventListener(player))
+console.log(player.pos)
+
+let test = false;
 /*---------gameloop--------*/
 function draw() {
+  //reseting canvas
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  viewport.draw();
   debugStack.forEach((obj) => {
     obj.draw();
   })
+  /*
   gamestack.forEach((obj) => {
-    obj.draw();
+    if(obj.pos.x+obj.player.width < viewport.x || ){
+      
+    }
   });
+  viewport.draw();
+  */
+ for(const obj of gamestack){
+    if(obj.pos.x + obj.size.width < viewport.x[0] ||
+      obj.pos.x > viewport.x[0] + viewport.width ||
+      obj.pos.y + obj.size.height < viewport.y[0] ||
+      obj.pos.y > viewport.x[0] + viewport.width){
+      if(!test){
+        console.log(obj);
+        test = true;
+      }
+      continue;
+    }
+    obj.draw()
+ }
+ viewport.draw();
 }
 function update() {}
 function gameLoop(callback) {
