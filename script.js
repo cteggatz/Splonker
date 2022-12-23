@@ -5,17 +5,21 @@ import {Viewport} from "./scripts/viewport.js";
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+
 /*------------init------------*/
+ctx.canvas.height = document.documentElement.clientHeight;
+ctx.canvas.width = document.documentElement.clientWidth;
 const time = {
   lastTime: Date.now(),
   dt: new Array(),
   fps: new Array(),
 };
 //stack
+let debugStack = new Array();
 let gamestack = new Array();
 let eventHandlers = new Array();
 //debug labels
-gamestack.push(
+debugStack.push(
   new DebugStack(ctx, [
     createText('Delta Time', time.dt),
     createText('fps', time.fps),
@@ -26,17 +30,19 @@ let player = new Player(ctx, 10,10, 50, 50,gamestack);
 eventHandlers.push(new playerEventListener(player))
 
 //viewport
-let viewport = new Viewport(ctx, 100, 100);
+let viewport = new Viewport(ctx, 640, 512);
 
 
 /*---------gameloop--------*/
 function draw() {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   viewport.draw();
+  debugStack.forEach((obj) => {
+    obj.draw();
+  })
   gamestack.forEach((obj) => {
     obj.draw();
   });
-  ctx.fillRect(100, 100, 100, 100);
 }
 function update() {}
 function gameLoop(callback) {
@@ -50,15 +56,16 @@ function gameLoop(callback) {
 }
 // ---------init-----------
 window.onload = function () {
-  ctx.canvas.height = document.documentElement.clientHeight;
-  ctx.canvas.width = document.documentElement.clientWidth;
+  ctx.canvas.height = window.innerHeight;
+  ctx.canvas.width = window.innerWidth;
   document.addEventListener('keydown', (e) => {
     //console.log(e.key)
     eventHandlers[0].update(e.key)
   });
-  document.addEventListener('resize', ()=>{
-    ctx.canvas.height = document.documentElement.clientHeight;
-    ctx.canvas.width = document.documentElement.clientWidth;
-  })
+  window.onresize = function(){
+    ctx.canvas.height = window.innerHeight;
+    ctx.canvas.width = window.innerWidth
+    viewport.updateSize(ctx)
+  }
   requestAnimationFrame(gameLoop);
 };
