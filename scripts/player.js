@@ -1,16 +1,20 @@
 export class Player {
-  constructor(ctx, x, y, width, height) {
+  constructor(ctx, x, y, width, height, viewport) {
     this.pos = { x, y };
     this.size = { width, height };
     this.ctx = ctx;
+    this.viewport = viewport
   }
   draw() {
     this.ctx.fillRect(
-      this.pos.x,
-      this.pos.y,
+      this.pos.x + this.viewport.x[0],
+      this.pos.y + this.viewport.y[0],
       this.size.width,
       this.size.height
     );
+  }
+  update(){
+
   }
   move(x, y) {
     this.pos.x += x;
