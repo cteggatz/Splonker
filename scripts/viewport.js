@@ -14,7 +14,16 @@ export class Viewport {
     this.ctx.fillRect((this.x[0]+this.width), this.y-64, 64, this.height+128);
     this.ctx.fillRect(this.x[0], this.y[0]-64, this.width, 64);
     this.ctx.fillRect(this.x[0], this.y[0]+this.height, this.width, 64);
+    
+    //draws border
+    this.ctx.fillStyle = "grey";
+    
+    this.ctx.fillRect(this.x[0], this.y[0], 2, this.height);
+    this.ctx.fillRect(this.x[0]+this.width, this.y[0], 2, this.height)
+    this.ctx.fillRect(this.x[0],this.y[0],this.width, 2);
+    this.ctx.fillRect(this.x[0], this.y[0]+this.height, this.width, 2)
   }
+  //updates position and size of viewport when resizing
   updateSize(ctx){
     this.ctx = ctx
     this.x[0] = (ctx.canvas.width-this.width) * 0.5;

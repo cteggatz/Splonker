@@ -19,7 +19,6 @@ const time = {
   fps: new Array(),
 };
 //debugging
-
 let debugStack = new DebugStack(ctx, [
   createText('Delta Time', time.dt),
   createText('fps', time.fps),
@@ -29,12 +28,7 @@ let debugStack = new DebugStack(ctx, [
 let viewport = new Viewport(ctx, 640, 512);
 let gamestack = new Array();
 let eventHandlers = new Array();
-//adds item to gamestack and properly sets x and y properties
-function addToGameStack(obj){
-  obj.pos.x += viewport.x[0];
-  obj.pos.y += viewport.y[0];
-  gamestack.push(obj)
-}
+
 
 //player
 let player = new Player(ctx, 10,10, 50, 50, viewport);
