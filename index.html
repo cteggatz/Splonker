@@ -10,17 +10,26 @@
         background: black;
         align-items: center;
         text-align: center;
+        color: white;
+        position: absolute;
       }
       #canvas{
         background: black;
         min-width: 512px;
         min-height: 512px;
       }
+      #UI{
+        bottom: 20%;
+      }
     </style>
   </head>
   <body>
-    <canvas id="canvas"><canvas>
-    
+    <div>
+      <canvas id="canvas"></canvas>
+    </div>
+    <div id="UI">
+
+    </div>
     <script type='module' src="script.js"></script>
     <script type="module" src="./scripts/debug.js"></script>
     <script type="module" src="./scripts/player.js"></script>

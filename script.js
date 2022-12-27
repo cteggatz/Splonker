@@ -35,6 +35,12 @@ let player = new Player(ctx, 10,10, 50, 50, viewport);
 gamestack.push(player)
 eventHandlers.push(new playerEventListener(player))
 
+let para = document.createElement("p");
+let text = document.createTextNode("hello there my name is christopher");
+
+para.appendChild(text);
+document.getElementById("UI").appendChild(para)
+
 
 /*---------gameloop--------*/
 function draw() {
@@ -73,8 +79,10 @@ window.onload = function () {
   ctx.canvas.height = window.innerHeight;
   ctx.canvas.width = window.innerWidth;
   document.addEventListener('keydown', (e) => {
-    //console.log(e.key)
     eventHandlers[0].update(e.key)
+  });
+  document.addEventListener("click", (e) =>{
+    eventHandlers[0].update(e.clientXm, e.clientY);
   });
   window.onresize = function(){
     ctx.canvas.height = window.innerHeight;
