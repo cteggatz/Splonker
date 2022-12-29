@@ -1,6 +1,7 @@
 import { createText, DebugStack } from './scripts/debug.js';
 import {Player, playerEventListener} from "./scripts/player.js";
 import {Viewport} from "./scripts/viewport.js";
+import {UI, UIText, UIButton} from "./scripts/userInterface.js";
 
 
 /*------------options-----------*/
@@ -25,7 +26,14 @@ let debugStack = new DebugStack(ctx, [
 ])
 
 //game stuff
-let viewport = new Viewport(ctx, 640, 512);
+let viewport = new Viewport(ctx, 640, 448);
+let userInterface = new UI(viewport.x, (viewport.y[0]+viewport.height), 640,192,[
+  new UIText("hello Testing", 0, 0, "red", 100)
+])
+viewport.updateSize(ctx, userInterface);
+userInterface.updateSize(viewport);
+
+
 let gamestack = new Array();
 let eventHandlers = new Array();
 
@@ -34,13 +42,6 @@ let eventHandlers = new Array();
 let player = new Player(ctx, 10,10, 50, 50, viewport);
 gamestack.push(player)
 eventHandlers.push(new playerEventListener(player))
-
-let para = document.createElement("p");
-let text = document.createTextNode("hello there my name is christopher");
-
-para.appendChild(text);
-document.getElementById("UI").appendChild(para)
-
 
 /*---------gameloop--------*/
 function draw() {
@@ -61,6 +62,7 @@ function draw() {
     obj.draw()
  }
  viewport.draw();
+ userInterface.draw(ctx);
 }
 function update() {
 
@@ -82,12 +84,12 @@ window.onload = function () {
     eventHandlers[0].update(e.key)
   });
   document.addEventListener("click", (e) =>{
-    eventHandlers[0].update(e.clientXm, e.clientY);
+    //eventHandlers[0].update(e.clientXm, e.clientY);
   });
   window.onresize = function(){
     ctx.canvas.height = window.innerHeight;
     ctx.canvas.width = window.innerWidth
-    viewport.updateSize(ctx)
+    viewport.updateSize(ctx, userInterface)
   }
   requestAnimationFrame(gameLoop);
 };

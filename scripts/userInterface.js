@@ -4,16 +4,30 @@ export class UI{
         this.size = {width, height};
         this.stack = stack;
     }
+    updateUI(stack){
+        this.stack = stack
+    }
     draw(ctx){
-        ctx.fillStyle = 'blue';
+        ctx.fillStyle = '#F1FAEE';
         ctx.fillRect(this.pos.x, this.pos.y, this.size.width, this.size.height);
+        ctx.fillStyle = "#1D3557";
+        ctx.fillRect(this.pos.x, this.pos.y, this.size.width, 2);
+        ctx.fillRect(this.pos.x, this.pos.y+this.size.height, this.size.width, 2);
+        ctx.fillRect(this.pos.x, this.pos.y, 2, this.size.height);
+        ctx.fillRect(this.pos.x+this.size.width, this.pos.y, 2, this.size.height)
+        for(let obj of this.stack){
+            obj.draw(ctx, this.pos.x, this.pos.y)
+        }
     }
     onClick(x,y){
         if(x > this.pos.x + this.pos.width || x < this.pos.x ||
             y > this.pos.y + this.pos.height || y < this.pos.y){
             return;
-        }
-        
+        }  
+    }
+    updateSize(viewport){
+        this.pos.x = viewport.x[0];
+        this.pos.y = viewport.y[0]+viewport.height
     }
 }
 export class UIText{
@@ -23,8 +37,9 @@ export class UIText{
         this.color = color;
         this.size = size;
     }
-    draw(ctx){
-        ctx.fillText(this.text, this.pos.x, this.pos.y, this.size);
+    draw(ctx,x,y){
+        ctx.fillStyle= this.color;
+        ctx.fillText(this.text, this.pos.x + x+3, this.pos.y + y+10, this.size);
     }
 }
 export class UIButton extends UIText{
