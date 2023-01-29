@@ -27,9 +27,11 @@ let debugStack = new DebugStack(ctx, [
 
 //game stuff
 let viewport = new Viewport(ctx, 640, 448);
-let userInterface = new UI(viewport.x, (viewport.y[0]+viewport.height), 640,192,[
+let userInterface = new UI(
+  viewport.x, (viewport.y[0]+viewport.height),
+   640,192,[
   new UIText("hello Testing", 0, 0, "red", 100)
-])
+  ])
 viewport.updateSize(ctx, userInterface);
 userInterface.updateSize(viewport);
 
@@ -65,8 +67,10 @@ function draw() {
  userInterface.draw(ctx);
 }
 function update() {
-
+  viewport.updateSize(ctx, userInterface);
+  userInterface.updateSize(viewport);
 }
+//normal game loop
 function gameLoop(callback) {
   time.dt[0] = callback - time.lastTime;
   time.lastTime = callback;

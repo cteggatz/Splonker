@@ -1,6 +1,9 @@
 export class UI{
     constructor(x,y, width, height, stack){
-        this.pos = {x,y};
+        this.pos = {
+            x:[x],
+            y:[y]
+        };
         this.size = {width, height};
         this.stack = stack;
     }
@@ -16,7 +19,7 @@ export class UI{
         ctx.fillRect(this.pos.x, this.pos.y, 2, this.size.height);
         ctx.fillRect(this.pos.x+this.size.width, this.pos.y, 2, this.size.height)
         for(let obj of this.stack){
-            obj.draw(ctx, this.pos.x, this.pos.y)
+            obj.draw(ctx, this.pos.x[0], this.pos.y[0])
         }
     }
     onClick(x,y){
@@ -26,8 +29,8 @@ export class UI{
         }  
     }
     updateSize(viewport){
-        this.pos.x = viewport.x[0];
-        this.pos.y = viewport.y[0]+viewport.height
+        this.pos.x[0] = viewport.x[0];
+        this.pos.y[0] = viewport.y[0]+viewport.height
     }
 }
 export class UIText{
